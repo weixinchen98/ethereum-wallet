@@ -1,5 +1,6 @@
 ### Feature
 - 设置密码，对应账户生成keystore存储在本地，输入密码可以解锁EOA(External of Account)
+- 修改密码
 - 可以创建任意数量EOA
 - 删除EOA(同时删除本地keystore, 操作不可逆)
 - 输入密钥可以导入EOA
