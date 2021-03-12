@@ -34,8 +34,10 @@ const (
 )
 
 const (
-	TetherTokenAddress TokenAddress = "0x0881DC670828Dc74Dc9AdE68ec328a579Dc1E660"
+	RopsternTetherTokenAddress TokenAddress = "0x0881DC670828Dc74Dc9AdE68ec328a579Dc1E660"
 )
+
+const RopstenServerAddress = "0xb390dCA0dA832a8Ff93f6Ee10835352f3321286d"
 
 type Wallet struct {
 	userId string
@@ -496,6 +498,77 @@ func(w *Wallet) USDTContractWithdraw(from, contractAdr common.Address, valueToA,
 
 }
 
+func(w *Wallet) USDTContractCreate(from, addressA, addressB, addressJudge common.Address, content string, feePercentLimit int64,  passphrase string) (txHash string, err error){
+	const USDTDecimals = 6
+
+	// Should be after approving confirmed
+	for _, account := range(w.ks.Accounts()) {
+		if(account.Address == from){
+
+
+			root := keyStorePath + w.userId
+
+			err := filepath.Walk(root, func(file string, info os.FileInfo, err error) error {
+				if info.IsDir(){
+					return nil
+				}
+
+				if !strings.HasSuffix(file, strings.ToLower(from.String()[2:])){
+					return nil
+				}
+
+				jsonBytes, err := ioutil.ReadFile(file)
+				if err != nil{
+					return err
+				}
+
+				Key, err := keystore.DecryptKey(jsonBytes, passphrase)
+				if err != nil {
+					return err
+				}
+
+				ServerAdr := common.HexToAddress(RopstenServerAddress)
+				instance, err := contracts.NewSever(ServerAdr, w.client)
+				if err != nil {
+					return err
+				}
+
+				nonce, err := w.client.PendingNonceAt(context.Background(), from)
+				if err != nil {
+					return err
+				}
+
+				gasPrice, err := w.client.SuggestGasPrice(context.Background())
+				if err != nil {
+					return err
+				}
+
+				auth := bind.NewKeyedTransactor(Key.PrivateKey)
+				auth.Nonce = big.NewInt(int64(nonce))
+				auth.Value = big.NewInt(0)     // in wei
+				// TODO: gas estimate
+				auth.GasLimit = uint64(2000000) // 1898437
+				auth.GasPrice = gasPrice
+
+
+				tx, err := instance.CreateContract(auth, addressA, addressB, addressJudge, content ,big.NewInt(feePercentLimit))
+				txHash = tx.Hash().Hex()
+
+				return err
+			})
+
+			return txHash, err
+		}
+	}
+
+	return "", errors.New("_from account not found.")
+
+
+
+
+
+
+}
 
 func transferToken(tokenAdress common.Address, privateKey *ecdsa.PrivateKey, amount *big.Int, toAddress common.Address, client *ethclient.Client) (string, error) {
 	publicKey := privateKey.Public()

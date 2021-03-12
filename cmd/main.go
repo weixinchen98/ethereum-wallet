@@ -3,7 +3,6 @@ package main
 import (
 	"ethereum-wallet/pkg"
 	"fmt"
-	"github.com/ethereum/go-ethereum/common"
 	"strconv"
 )
 
@@ -73,14 +72,14 @@ func main(){
 	}
 
 	//get account erc-20 token balance
-	tokenBalance, err := w.GetTokenBalance(wallet.TetherTokenAddress, accounts[0].Address)
+	tokenBalance, err := w.GetTokenBalance(wallet.RopsternTetherTokenAddress, accounts[0].Address)
 	if err != nil {
 		fmt.Println(err)
 	}else {
 		fmt.Println(tokenBalance)
 	}
 
-	tokenBalance, err = w.GetTokenBalance(wallet.TetherTokenAddress, accounts[1].Address)
+	tokenBalance, err = w.GetTokenBalance(wallet.RopsternTetherTokenAddress, accounts[1].Address)
 	if err != nil {
 		fmt.Println(err)
 	}else {
@@ -96,7 +95,7 @@ func main(){
 	//}
 
 	//Transfer erc-20 token
-	//txHash, err := w.TransferToken(wallet.TetherTokenAddress, accounts[0].Address, accounts[1].Address, 1, passphrase)
+	//txHash, err := w.TransferToken(wallet.RopsternTetherTokenAddress, accounts[0].Address, accounts[1].Address, 1, passphrase)
 	//if err != nil {
 	//	fmt.Println(err)
 	//}else {
@@ -104,13 +103,22 @@ func main(){
 	//}
 
 	//Approve ERC-20 token
-	contractAdr := common.HexToAddress("0x2E28EFADc79eB784a162eEF7F5ff393710232646")
-	//txHash, err := w.ApproveToken(wallet.TetherTokenAddress, accounts[0].Address, contractAdr, 1, passphrase)
+	//contractAdr := common.HexToAddress("0x2E28EFADc79eB784a162eEF7F5ff393710232646")
+	//txHash, err := w.ApproveToken(wallet.RopsternTetherTokenAddress, accounts[0].Address, contractAdr, 1, passphrase)
 	//if err != nil {
 	//	fmt.Println(err)
 	//}else {
 	//	fmt.Println("Transaction hash: " + txHash)
 	//}
+
+	//Create contract
+	txHash, err := w.USDTContractCreate(accounts[0].Address, accounts[0].Address, accounts[1].Address, accounts[2].Address, "test content", 20, passphrase)
+	if err != nil {
+		fmt.Println(err)
+	}else {
+		fmt.Println("Transaction hash: " + txHash)
+	}
+
 
 	//contract deposit
 	//txHash, err := w.USDTContractDeposit(accounts[0].Address, contractAdr, 1, passphrase)
@@ -121,10 +129,10 @@ func main(){
 	//}
 
 	//contract withdraw
-	txHash, err := w.USDTContractWithdraw(accounts[2].Address, contractAdr, 0.5, 0.5, 10, passphrase)
-	if err != nil {
-		fmt.Println(err)
-	}else {
-		fmt.Println("Transaction hash: " + txHash)
-	}
+	//txHash, err := w.USDTContractWithdraw(accounts[2].Address, contractAdr, 0.5, 0.5, 10, passphrase)
+	//if err != nil {
+	//	fmt.Println(err)
+	//}else {
+	//	fmt.Println("Transaction hash: " + txHash)
+	//}
 }
