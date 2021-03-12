@@ -112,12 +112,12 @@ func main(){
 	//}
 
 	//Create contract
-	txHash, err := w.USDTContractCreate(accounts[0].Address, accounts[0].Address, accounts[1].Address, accounts[2].Address, "test content", 20, passphrase)
-	if err != nil {
-		fmt.Println(err)
-	}else {
-		fmt.Println("Transaction hash: " + txHash)
-	}
+	//txHash, err := w.USDTContractCreate(accounts[0].Address, accounts[0].Address, accounts[1].Address, accounts[2].Address, "test content", 20, passphrase)
+	//if err != nil {
+	//	fmt.Println(err)
+	//}else {
+	//	fmt.Println("Transaction hash: " + txHash)
+	//}
 
 
 	//contract deposit

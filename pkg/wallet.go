@@ -69,6 +69,9 @@ func (w *Wallet) importAccounts(passphrase string) error{
 	root := keyStorePath + w.userId
 
 	err := filepath.Walk(root, func(file string, info os.FileInfo, err error) error {
+		if info == nil {
+			return nil
+		}
 		if info.IsDir(){
 			return nil
 		}
