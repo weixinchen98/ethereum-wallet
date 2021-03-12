@@ -3,7 +3,7 @@ package token
 import (
 	"context"
 	"crypto/ecdsa"
-	"ethereum-wallet/token"
+	"ethereum-wallet/contracts"
 	"fmt"
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
@@ -52,7 +52,7 @@ func main(){
 
 	// Account Token Balance
 	tokenAddress := common.HexToAddress(TehterTokenAddress)
-	instance, err := token.NewToken(tokenAddress, client)
+	instance, err := contracts.NewToken(tokenAddress, client)
 	if err != nil {
 		log.Fatal(err)
 	}

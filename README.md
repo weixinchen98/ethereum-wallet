@@ -8,4 +8,4 @@
 - [x] 发送Eth
 - [x] 发送ERC20
 - [x] 切换网络(默认为主网)
-- [ ] 输入合约地址(支持我们部署的USDTContract和TetherToken)可以和合约交互
+- [x] 输入合约地址(支持我们部署的USDTContract和TetherToken)可以和合约交互
