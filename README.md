@@ -6,6 +6,6 @@
 - [x] 输入密钥可以导入EOA
 - [x] 查看Eth余额和ERC20余额
 - [x] 发送Eth
-- [ ] 发送ERC20
+- [x] 发送ERC20
 - [x] 切换网络(默认为主网)
 - [ ] 输入合约地址(支持我们部署的USDTContract和TetherToken)可以和合约交互

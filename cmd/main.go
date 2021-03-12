@@ -87,7 +87,14 @@ func main(){
 	//if err != nil {
 	//	fmt.Println(err)
 	//}else {
-	//	fmt.Println(txHash)
+	//	fmt.Println("Transaction hash: " + txHash)
+	//}
+
+	//txHash, err := w.TransferToken(wallet.TetherTokenAddress, accounts[0].Address, accounts[1].Address, 1, passphrase)
+	//if err != nil {
+	//	fmt.Println(err)
+	//}else {
+	//	fmt.Println("Transaction hash: " + txHash)
 	//}
 
 
