@@ -1,8 +1,9 @@
-package main
+package token
 
 import (
 	"context"
 	"crypto/ecdsa"
+	"ethereum-wallet/token"
 	"fmt"
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
@@ -18,6 +19,7 @@ import (
 	"math"
 	"math/big"
 	"regexp"
+
 )
 
 const ETHDecimals = 18
@@ -50,7 +52,7 @@ func main(){
 
 	// Account Token Balance
 	tokenAddress := common.HexToAddress(TehterTokenAddress)
-	instance, err := NewToken(tokenAddress, client)
+	instance, err := token.NewToken(tokenAddress, client)
 	if err != nil {
 		log.Fatal(err)
 	}
