@@ -8,10 +8,10 @@ import (
 
 func main(){
 	userId := "testId"
-	passphrase := "testPass"
+	//passphrase := "testPass"
 	//newPassphrase := "newPss"
 
-	w, err := wallet.NewWallet(userId, passphrase)
+	w, err := wallet.NewWallet(userId)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -54,37 +54,29 @@ func main(){
 	//	fmt.Println("change password successfully.")
 	//}
 
-	//get account ether balance
-	fmt.Print("Balance of Account 0: ")
-	Balance, err := w.GetBalance(accounts[0].Address, passphrase)
-	if err != nil {
-		fmt.Println(err)
-	}else {
-		fmt.Println(Balance)
+	for i, account := range(accounts) {
+		//get account ether balance
+		fmt.Print("Balance of Account " + strconv.Itoa(i) + ": ")
+		Balance, err := w.GetBalance(account.Address)
+		if err != nil {
+			fmt.Println(err)
+		}else {
+			fmt.Println(Balance)
+		}
+
+		//get account erc-20 token balance
+		fmt.Print("Token balance of Account " + strconv.Itoa(i) + ": ")
+		tokenBalance, err := w.GetTokenBalance(wallet.RopsternTetherTokenAddress, account.Address)
+		if err != nil {
+			fmt.Println(err)
+		}else {
+			fmt.Println(tokenBalance)
+		}
 	}
 
-	fmt.Print("Balance of Account 1: ")
-	Balance, err = w.GetBalance(accounts[1].Address, passphrase)
-	if err != nil {
-		fmt.Println(err)
-	}else {
-		fmt.Println(Balance)
-	}
 
-	//get account erc-20 token balance
-	tokenBalance, err := w.GetTokenBalance(wallet.RopsternTetherTokenAddress, accounts[0].Address)
-	if err != nil {
-		fmt.Println(err)
-	}else {
-		fmt.Println(tokenBalance)
-	}
 
-	tokenBalance, err = w.GetTokenBalance(wallet.RopsternTetherTokenAddress, accounts[1].Address)
-	if err != nil {
-		fmt.Println(err)
-	}else {
-		fmt.Println(tokenBalance)
-	}
+
 
 	//Transfer ether
 	//txHash, err := w.TransferEther(accounts[0].Address, accounts[1].Address, 0.1, passphrase)

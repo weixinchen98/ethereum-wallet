@@ -11,4 +11,3 @@
 - [x] 输入合约地址(支持我们部署的USDTContract和TetherToken)可以和合约交互
 
 ### TODO
-一个Account 对应一个密码
